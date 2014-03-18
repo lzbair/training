@@ -13,5 +13,4 @@ public class Start {
 		System.out.println("Abdessadek.");
 		System.out.println("FHA : Hello evey body");
 	}
-
 }
