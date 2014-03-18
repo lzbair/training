@@ -1,4 +1,3 @@
-
 package com.formation.git;
 
 public class Start {
@@ -12,7 +11,7 @@ public class Start {
 		System.out.println("krimi git test comit !!");
 		System.out.println("The commit added by samir!!");
 		System.out.println("Abdessadek.");
+		System.out.println("FHA : Hello evey body");
 	}
 
 }
-
