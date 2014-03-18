@@ -8,6 +8,8 @@ public class Start {
 		System.out.println("Git Training");
 		
 		System.out.println("The commit !!");
+		
+		System.out.println("krimi git test comit !!");
 	}
 
 }
