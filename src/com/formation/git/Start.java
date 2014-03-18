@@ -7,13 +7,10 @@ public class Start {
 		// TODO Auto-generated method stub
 		System.out.println("Git Training");
 		
-<<<<<<< HEAD
 		System.out.println("The commit !!");
 		
 		System.out.println("krimi git test comit !!");
-=======
 		System.out.println("The commit added by samir!!");
->>>>>>> commit 2
 	}
 
 }
