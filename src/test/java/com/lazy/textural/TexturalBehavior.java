@@ -2,7 +2,6 @@ package com.lazy.textural;
 
 import static org.junit.Assert.assertEquals;
 
-import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
@@ -14,7 +13,7 @@ public class TexturalBehavior {
 
     @Test
     public void printsBlackTexture() throws Exception {
-        Textural textural = new Textural(Color.BLACK);
+        Textural textural = new Textural("black");
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("black.png"));
         assertEquals(0xff000000, texture.getRGB(0, 0));
@@ -25,7 +24,7 @@ public class TexturalBehavior {
 
     @Test
     public void printsFullBlackTexture() throws Exception {
-        Textural textural = new Textural(Color.BLACK);
+        Textural textural = new Textural("black");
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("black.png"));
 
@@ -42,7 +41,7 @@ public class TexturalBehavior {
 
     @Test
     public void printsYellowTexture() throws Exception {
-        Textural textural = new Textural(Color.YELLOW);
+        Textural textural = new Textural("yellow");
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("yellow.png"));
 
@@ -53,27 +52,43 @@ public class TexturalBehavior {
     }
 
     // no need to this test
-    // @Test(expected = Exception.class)
-    // public void printsUnfoundColorTexture() throws Exception {
-    // Textural textural = new Textural("myColor");
-    // textural.print(100, 100);
-    // BufferedImage texture = ImageIO.read(new File("myColor.png"));
-    //
-    // assertEquals(0xffffff00, texture.getRGB(0, 0));
-    // assertEquals(0xffffff00, texture.getRGB(99, 0));
-    // assertEquals(0xffffff00, texture.getRGB(0, 99));
-    // assertEquals(0xffffff00, texture.getRGB(99, 99));
-    // }
-
-    @Test
-    public void printsTextureUsingAwtColor() throws Exception {
-        Textural textural = new Textural(Color.RED);
+    @Test(expected = Exception.class)
+    public void printsUnfoundColorTexture() throws Exception {
+        Textural textural = new Textural("myColor");
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File("yellow.png"));
+        BufferedImage texture = ImageIO.read(new File("myColor.png"));
 
         assertEquals(0xffffff00, texture.getRGB(0, 0));
         assertEquals(0xffffff00, texture.getRGB(99, 0));
         assertEquals(0xffffff00, texture.getRGB(0, 99));
         assertEquals(0xffffff00, texture.getRGB(99, 99));
     }
+
+    @Test
+    public void printsTextureUsingAwtColor() throws Exception {
+        Textural textural = new Textural("red");
+        textural.print(100, 100);
+        BufferedImage texture = ImageIO.read(new File("rede.png"));
+
+        assertEquals(0xffffff00, texture.getRGB(0, 0));
+        assertEquals(0xffffff00, texture.getRGB(99, 0));
+        assertEquals(0xffffff00, texture.getRGB(0, 99));
+        assertEquals(0xffffff00, texture.getRGB(99, 99));
+        // une fois j'ai utiliser awt color, j ai un pb de constructeur de la
+        // texture
+    }
+
+    // @Test
+    // public void renameMe() {
+    // // given
+    // Textural textural = new Textural("red", "green");
+    //
+    // // when
+    // textural.print(100, 100);
+    //
+    // // then
+    // assertEquals(0xffffff00, texture.getRGB(0, 49));
+    // assertEquals(0xff000000, texture.getRGB(50, 99));
+    //
+    // }
 }
