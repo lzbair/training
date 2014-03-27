@@ -8,7 +8,7 @@ public class Color {
 
     private Integer blueComponent;
 
-    private Integer rgb;
+    private int rgb;
 
     public Color(Integer redComponent, Integer greenComponent, Integer blueComponent) {
         super();
@@ -30,7 +30,7 @@ public class Color {
     public static final Color CYAN = new Color(0, 255, 255);
     public static final Color BLUE = new Color(0, 0, 255);
 
-    public Integer getRgb() {
+    public int getRgb() {
         return rgb;
     }
 

@@ -18,10 +18,10 @@ public class TexturalBehavior {
         Textural textural = new Textural(Color.BLACK);
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
-        assertEquals(0xff000000, texture.getRGB(0, 0));
-        assertEquals(0xff000000, texture.getRGB(99, 0));
-        assertEquals(0xff000000, texture.getRGB(0, 99));
-        assertEquals(0xff000000, texture.getRGB(99, 99));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(0, 0));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(99, 0));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(0, 99));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(99, 99));
     }
 
     @Test
@@ -33,12 +33,12 @@ public class TexturalBehavior {
         int randomAbscissa = (int) (Math.random() * 99 + 1);
         int randomOrdinate = (int) (Math.random() * 99 + 1);
 
-        assertEquals(0xff000000, texture.getRGB(randomAbscissa, randomOrdinate));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(randomAbscissa, randomOrdinate));
 
         randomAbscissa = (int) (Math.random() * 99 + 1);
         randomOrdinate = (int) (Math.random() * 99 + 1);
 
-        assertEquals(0xff000000, texture.getRGB(randomAbscissa, randomOrdinate));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(randomAbscissa, randomOrdinate));
     }
 
     @Test
@@ -47,10 +47,10 @@ public class TexturalBehavior {
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
 
-        assertEquals(0xffffff00, texture.getRGB(0, 0));
-        assertEquals(0xffffff00, texture.getRGB(99, 0));
-        assertEquals(0xffffff00, texture.getRGB(0, 99));
-        assertEquals(0xffffff00, texture.getRGB(99, 99));
+        assertEquals(Color.YELLOW.getRgb(), texture.getRGB(0, 0));
+        assertEquals(Color.YELLOW.getRgb(), texture.getRGB(99, 0));
+        assertEquals(Color.YELLOW.getRgb(), texture.getRGB(0, 99));
+        assertEquals(Color.YELLOW.getRgb(), texture.getRGB(99, 99));
     }
 
     // no need to this test
@@ -72,23 +72,23 @@ public class TexturalBehavior {
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("redPicture.png"));
 
-        assertEquals(0xffff0000, texture.getRGB(0, 0));
-        assertEquals(0xffff0000, texture.getRGB(99, 0));
-        assertEquals(0xffff0000, texture.getRGB(0, 99));
-        assertEquals(0xffff0000, texture.getRGB(99, 99));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(0, 0));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(99, 0));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(0, 99));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(99, 99));
     }
 
-    // @Test
-    // public void renameMe() {
-    // // given
-    // Textural textural = new Textural("red", "green");
-    //
-    // // when
-    // textural.print(100, 100);
-    //
-    // // then
-    // assertEquals(0xffffff00, texture.getRGB(0, 49));
-    // assertEquals(0xff000000, texture.getRGB(50, 99));
-    //
-    // }
+    @Test
+    public void printsMixedTextureColor() {
+        // given
+        Textural textural = new Textural(Color.ORANGE, Color.GREEN, "mixedPicture");
+
+        // when
+        textural.print(100, 100);
+
+        // then
+        assertEquals(0xffffff00, texture.getRGB(0, 49));
+        assertEquals(0xff000000, texture.getRGB(50, 99));
+
+    }
 }
