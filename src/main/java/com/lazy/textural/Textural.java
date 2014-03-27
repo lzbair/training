@@ -3,27 +3,26 @@ package com.lazy.textural;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.imageio.ImageIO;
 
 public class Textural {
 
-    private String texturalColor;
+    private static final String DEFAULT_TEXTURE_NAME = "new picture";
 
-    private Map<String, Integer> colorsMap;
+    private Color texturalColor;
 
-    public Textural(String texturalColor) throws Exception {
-        this.texturalColor = texturalColor;
-        initColorsMap();
-        validateColor(texturalColor);
+    private String texturalName;
+
+    public Textural(Color color) throws Exception {
+        this.texturalColor = color;
+        // if no texturalName is given then take texturalColor name
+        this.texturalName = DEFAULT_TEXTURE_NAME;
     }
 
-    private void validateColor(String texturalColor) throws Exception {
-        if (!colorsMap.containsKey(texturalColor)) {
-            throw new Exception("Color not found");
-        }
+    public Textural(Color texturalColor, String texturalName) throws Exception {
+        this.texturalColor = texturalColor;
+        this.texturalName = texturalName;
     }
 
     public void print(int width, int height) throws IOException {
@@ -32,22 +31,12 @@ public class Textural {
 
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
-                buffImg.setRGB(i, j, colorsMap.get(texturalColor));
+                buffImg.setRGB(i, j, texturalColor.getRgb());
             }
         }
 
-        File imageFile = new File(texturalColor + ".png");
+        File imageFile = new File(texturalName + ".png");
         ImageIO.write(buffImg, "PNG", imageFile);
     }
 
-    private void initColorsMap() {
-        colorsMap = new HashMap<String, Integer>();
-        colorsMap.put("black", 0xff000000);
-        colorsMap.put("gray", 0xff808080);
-        colorsMap.put("white", 0xffffffff);
-        colorsMap.put("red", 0xffff0000);
-        colorsMap.put("blue", 0xff0000ff);
-        colorsMap.put("yellow", 0xffffff00);
-
-    }
 }

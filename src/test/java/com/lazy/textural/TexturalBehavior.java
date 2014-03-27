@@ -11,11 +11,13 @@ import org.junit.Test;
 
 public class TexturalBehavior {
 
+    private static final String DEFAULT_TEXTURE_NAME = "new picture.png";
+
     @Test
     public void printsBlackTexture() throws Exception {
-        Textural textural = new Textural("black");
+        Textural textural = new Textural(Color.BLACK);
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File("black.png"));
+        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
         assertEquals(0xff000000, texture.getRGB(0, 0));
         assertEquals(0xff000000, texture.getRGB(99, 0));
         assertEquals(0xff000000, texture.getRGB(0, 99));
@@ -24,9 +26,9 @@ public class TexturalBehavior {
 
     @Test
     public void printsFullBlackTexture() throws Exception {
-        Textural textural = new Textural("black");
+        Textural textural = new Textural(Color.BLACK);
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File("black.png"));
+        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
 
         int randomAbscissa = (int) (Math.random() * 99 + 1);
         int randomOrdinate = (int) (Math.random() * 99 + 1);
@@ -41,9 +43,9 @@ public class TexturalBehavior {
 
     @Test
     public void printsYellowTexture() throws Exception {
-        Textural textural = new Textural("yellow");
+        Textural textural = new Textural(Color.YELLOW);
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File("yellow.png"));
+        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
 
         assertEquals(0xffffff00, texture.getRGB(0, 0));
         assertEquals(0xffffff00, texture.getRGB(99, 0));
@@ -52,30 +54,28 @@ public class TexturalBehavior {
     }
 
     // no need to this test
-    @Test(expected = Exception.class)
-    public void printsUnfoundColorTexture() throws Exception {
-        Textural textural = new Textural("myColor");
-        textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File("myColor.png"));
-
-        assertEquals(0xffffff00, texture.getRGB(0, 0));
-        assertEquals(0xffffff00, texture.getRGB(99, 0));
-        assertEquals(0xffffff00, texture.getRGB(0, 99));
-        assertEquals(0xffffff00, texture.getRGB(99, 99));
-    }
+    // @Test(expected = Exception.class)
+    // public void printsUnfoundColorTexture() throws Exception {
+    // Textural textural = new Textural("myColor");
+    // textural.print(100, 100);
+    // BufferedImage texture = ImageIO.read(new File("myColor.png"));
+    //
+    // assertEquals(0xffffff00, texture.getRGB(0, 0));
+    // assertEquals(0xffffff00, texture.getRGB(99, 0));
+    // assertEquals(0xffffff00, texture.getRGB(0, 99));
+    // assertEquals(0xffffff00, texture.getRGB(99, 99));
+    // }
 
     @Test
     public void printsTextureUsingAwtColor() throws Exception {
-        Textural textural = new Textural("red");
+        Textural textural = new Textural(Color.RED, "redPicture");
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File("rede.png"));
+        BufferedImage texture = ImageIO.read(new File("redPicture.png"));
 
-        assertEquals(0xffffff00, texture.getRGB(0, 0));
-        assertEquals(0xffffff00, texture.getRGB(99, 0));
-        assertEquals(0xffffff00, texture.getRGB(0, 99));
-        assertEquals(0xffffff00, texture.getRGB(99, 99));
-        // une fois j'ai utiliser awt color, j ai un pb de constructeur de la
-        // texture
+        assertEquals(0xffff0000, texture.getRGB(0, 0));
+        assertEquals(0xffff0000, texture.getRGB(99, 0));
+        assertEquals(0xffff0000, texture.getRGB(0, 99));
+        assertEquals(0xffff0000, texture.getRGB(99, 99));
     }
 
     // @Test
