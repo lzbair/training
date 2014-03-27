@@ -14,9 +14,16 @@ public class Textural {
 
     private Map<String, Integer> colorsMap;
 
-    public Textural(String texturalColor) {
+    public Textural(String texturalColor) throws Exception {
         this.texturalColor = texturalColor;
         initColorsMap();
+        validateColor(texturalColor);
+    }
+
+    private void validateColor(String texturalColor) throws Exception {
+        if (!colorsMap.containsKey(texturalColor)) {
+            throw new Exception("Color not found");
+        }
     }
 
     public void print(int width, int height) throws IOException {

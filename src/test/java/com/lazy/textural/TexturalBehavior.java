@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -13,7 +12,7 @@ import org.junit.Test;
 public class TexturalBehavior {
 
     @Test
-    public void printsBlackTexture() throws IOException {
+    public void printsBlackTexture() throws Exception {
         Textural textural = new Textural("black");
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("black.png"));
@@ -24,7 +23,7 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void printsFullBlackTexture() throws IOException {
+    public void printsFullBlackTexture() throws Exception {
         Textural textural = new Textural("black");
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("black.png"));
@@ -41,10 +40,22 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void printsYellowTexture() throws IOException {
+    public void printsYellowTexture() throws Exception {
         Textural textural = new Textural("yellow");
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("yellow.png"));
+
+        assertEquals(0xffffff00, texture.getRGB(0, 0));
+        assertEquals(0xffffff00, texture.getRGB(99, 0));
+        assertEquals(0xffffff00, texture.getRGB(0, 99));
+        assertEquals(0xffffff00, texture.getRGB(99, 99));
+    }
+
+    @Test(expected = Exception.class)
+    public void printsUnfoundColorTexture() throws Exception {
+        Textural textural = new Textural("myColor");
+        textural.print(100, 100);
+        BufferedImage texture = ImageIO.read(new File("myColor.png"));
 
         assertEquals(0xffffff00, texture.getRGB(0, 0));
         assertEquals(0xffffff00, texture.getRGB(99, 0));
