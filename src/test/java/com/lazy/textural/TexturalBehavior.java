@@ -95,7 +95,25 @@ public class TexturalBehavior {
         // then
         BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
         assertEquals(Color.GREEN.getRgb(), texture.getRGB(0, 49));
-        assertEquals(Color.BLACK.getRgb(), texture.getRGB(50, 99));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(99, 0));
+
+    }
+
+    @Test
+    public void printsMixedTextureColorUpgrade() throws Exception {
+        // given
+        Textural texturalGreen = new Textural(Color.GREEN, 50, 100);
+        Textural texturalOrange = new Textural(Color.BLACK, 50, 100);
+
+        Picture picture = new Picture(texturalGreen, texturalOrange);
+
+        // when
+        picture.print();
+
+        // then
+        BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
+        assertEquals(Color.GREEN.getRgb(), texture.getRGB(0, 49));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(99, 0));
 
     }
 }

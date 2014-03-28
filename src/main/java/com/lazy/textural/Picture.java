@@ -24,8 +24,11 @@ public class Picture {
         BufferedImage secondTexturalBuffImg = secondTextural.getTexturalBufferedImage();
 
         int firstTextureWidth = firstTextural.getWidth();
+        int secondTexturalWidth = firstTextural.getWidth();
 
-        BufferedImage combined = new BufferedImage(100, 100, BufferedImage.TYPE_INT_ARGB);
+        int pictureHeight = Math.max(secondTextural.getHeight(), firstTextural.getHeight());
+
+        BufferedImage combined = new BufferedImage(firstTextureWidth + secondTexturalWidth, pictureHeight, BufferedImage.TYPE_INT_ARGB);
 
         // paint both images, preserving the alpha channels
         Graphics g = combined.getGraphics();
