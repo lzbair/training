@@ -24,4 +24,20 @@ public class TexturalBehavior {
         assertEquals(0xff000000, texture.getRGB(0, 99));
         assertEquals(0xff000000, texture.getRGB(99, 99));
     }
+
+    /*
+     * refinement test of color
+     */
+
+    @Test
+    public void printRedTexture() throws IOException {
+        Textural textural = new Textural("red");
+        textural.print(100, 100);
+        BufferedImage texture = ImageIO.read(new File("red.png"));
+        assertEquals(0xffff0000, texture.getRGB(0, 0));
+        assertEquals(0xffff0000, texture.getRGB(99, 0));
+        assertEquals(0xffff0000, texture.getRGB(0, 99));
+        assertEquals(0xffff0000, texture.getRGB(99, 99));
+    }
+
 }
