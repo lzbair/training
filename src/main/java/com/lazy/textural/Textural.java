@@ -16,7 +16,7 @@ public class Textural {
 
     public Textural(Color color) throws Exception {
         this.texturalColor = color;
-        // if no texturalName is given then take texturalColor name
+        // if no texturalName is given then take default name
         this.texturalName = DEFAULT_TEXTURE_NAME;
     }
 
@@ -25,8 +25,19 @@ public class Textural {
         this.texturalName = texturalName;
     }
 
+    public Textural(Color firstColor, Color secondColor, String texturalName) {
+
+    }
+
     public void print(int width, int height) throws IOException {
 
+        BufferedImage buffImg = getTexturalBufferedImage(width, height);
+
+        File imageFile = new File(texturalName + ".png");
+        ImageIO.write(buffImg, "PNG", imageFile);
+    }
+
+    private BufferedImage getTexturalBufferedImage(int width, int height) {
         BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         for (int i = 0; i < width; i++) {
@@ -34,9 +45,7 @@ public class Textural {
                 buffImg.setRGB(i, j, texturalColor.getRgb());
             }
         }
-
-        File imageFile = new File(texturalName + ".png");
-        ImageIO.write(buffImg, "PNG", imageFile);
+        return buffImg;
     }
 
 }

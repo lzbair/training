@@ -67,7 +67,7 @@ public class TexturalBehavior {
     // }
 
     @Test
-    public void printsTextureUsingAwtColor() throws Exception {
+    public void printsTextureWithName() throws Exception {
         Textural textural = new Textural(Color.RED, "redPicture");
         textural.print(100, 100);
         BufferedImage texture = ImageIO.read(new File("redPicture.png"));
@@ -79,16 +79,25 @@ public class TexturalBehavior {
     }
 
     @Test
-    public void printsMixedTextureColor() {
+    public void printsMixedTextureColor() throws Exception {
         // given
-        Textural textural = new Textural(Color.ORANGE, Color.GREEN, "mixedPicture");
+        Textural texturalGreen = new Textural(Color.GREEN);
+        texturalGreen.setWidth(50);
+        texturalGreen.setHeight(50);
+
+        Textural texturalOrange = new Textural(Color.ORANGE);
+        texturalOrange.setWidth(50);
+        texturalOrange.setHeight(50);
+
+        Picture picture = new Picture(texturalGreen, texturalOrange);
 
         // when
-        textural.print(100, 100);
+        picture.print();
 
         // then
-        assertEquals(0xffffff00, texture.getRGB(0, 49));
-        assertEquals(0xff000000, texture.getRGB(50, 99));
+        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
+        assertEquals(Color.ORANGE, texture.getRGB(0, 49));
+        assertEquals(Color.GREEN, texture.getRGB(50, 99));
 
     }
 }

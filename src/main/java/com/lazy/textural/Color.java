@@ -2,15 +2,15 @@ package com.lazy.textural;
 
 public class Color {
 
-    private Integer redComponent;
+    private int redComponent;
 
-    private Integer greenComponent;
+    private int greenComponent;
 
-    private Integer blueComponent;
+    private int blueComponent;
 
     private int rgb;
 
-    public Color(Integer redComponent, Integer greenComponent, Integer blueComponent) {
+    public Color(int redComponent, int greenComponent, int blueComponent) {
         super();
         this.redComponent = redComponent;
         this.greenComponent = greenComponent;
