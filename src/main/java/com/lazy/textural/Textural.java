@@ -8,16 +8,17 @@ import javax.imageio.ImageIO;
 
 public class Textural {
 
-    private static final String DEFAULT_TEXTURE_NAME = "new picture";
-
     private Color texturalColor;
 
     private String texturalName;
 
+    private int width;
+    private int height;
+
     public Textural(Color color) throws Exception {
         this.texturalColor = color;
         // if no texturalName is given then take default name
-        this.texturalName = DEFAULT_TEXTURE_NAME;
+        this.texturalName = Constantes.DEFAULT_TEXTURE_NAME;
     }
 
     public Textural(Color texturalColor, String texturalName) throws Exception {
@@ -30,14 +31,15 @@ public class Textural {
     }
 
     public void print(int width, int height) throws IOException {
-
-        BufferedImage buffImg = getTexturalBufferedImage(width, height);
+        this.width = width;
+        this.height = height;
+        BufferedImage buffImg = getTexturalBufferedImage();
 
         File imageFile = new File(texturalName + ".png");
         ImageIO.write(buffImg, "PNG", imageFile);
     }
 
-    private BufferedImage getTexturalBufferedImage(int width, int height) {
+    public BufferedImage getTexturalBufferedImage() {
         BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         for (int i = 0; i < width; i++) {
@@ -46,6 +48,22 @@ public class Textural {
             }
         }
         return buffImg;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 
 }

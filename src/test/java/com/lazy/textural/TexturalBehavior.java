@@ -11,13 +11,11 @@ import org.junit.Test;
 
 public class TexturalBehavior {
 
-    private static final String DEFAULT_TEXTURE_NAME = "new picture.png";
-
     @Test
     public void printsBlackTexture() throws Exception {
         Textural textural = new Textural(Color.BLACK);
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
+        BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
         assertEquals(Color.BLACK.getRgb(), texture.getRGB(0, 0));
         assertEquals(Color.BLACK.getRgb(), texture.getRGB(99, 0));
         assertEquals(Color.BLACK.getRgb(), texture.getRGB(0, 99));
@@ -28,7 +26,7 @@ public class TexturalBehavior {
     public void printsFullBlackTexture() throws Exception {
         Textural textural = new Textural(Color.BLACK);
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
+        BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
 
         int randomAbscissa = (int) (Math.random() * 99 + 1);
         int randomOrdinate = (int) (Math.random() * 99 + 1);
@@ -45,7 +43,7 @@ public class TexturalBehavior {
     public void printsYellowTexture() throws Exception {
         Textural textural = new Textural(Color.YELLOW);
         textural.print(100, 100);
-        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
+        BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
 
         assertEquals(Color.YELLOW.getRgb(), texture.getRGB(0, 0));
         assertEquals(Color.YELLOW.getRgb(), texture.getRGB(99, 0));
@@ -83,11 +81,11 @@ public class TexturalBehavior {
         // given
         Textural texturalGreen = new Textural(Color.GREEN);
         texturalGreen.setWidth(50);
-        texturalGreen.setHeight(50);
+        texturalGreen.setHeight(100);
 
-        Textural texturalOrange = new Textural(Color.ORANGE);
+        Textural texturalOrange = new Textural(Color.BLACK);
         texturalOrange.setWidth(50);
-        texturalOrange.setHeight(50);
+        texturalOrange.setHeight(100);
 
         Picture picture = new Picture(texturalGreen, texturalOrange);
 
@@ -95,9 +93,9 @@ public class TexturalBehavior {
         picture.print();
 
         // then
-        BufferedImage texture = ImageIO.read(new File(DEFAULT_TEXTURE_NAME));
-        assertEquals(Color.ORANGE, texture.getRGB(0, 49));
-        assertEquals(Color.GREEN, texture.getRGB(50, 99));
+        BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
+        assertEquals(Color.GREEN.getRgb(), texture.getRGB(0, 49));
+        assertEquals(Color.BLACK.getRgb(), texture.getRGB(50, 99));
 
     }
 }
