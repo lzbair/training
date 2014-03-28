@@ -12,10 +12,7 @@ public class Textural {
 
     private String texturalName;
 
-    private int width;
-    private int height;
-
-    public Textural(Color color) throws Exception {
+    public Textural(Color color) {
         this.texturalColor = color;
         // if no texturalName is given then take default name
         this.texturalName = Constantes.DEFAULT_TEXTURE_NAME;
@@ -31,15 +28,13 @@ public class Textural {
     }
 
     public void print(int width, int height) throws IOException {
-        this.width = width;
-        this.height = height;
-        BufferedImage buffImg = getTexturalBufferedImage();
+        BufferedImage buffImg = getTexturalBufferedImage(width, height);
 
         File imageFile = new File(texturalName + ".png");
         ImageIO.write(buffImg, "PNG", imageFile);
     }
 
-    public BufferedImage getTexturalBufferedImage() {
+    public BufferedImage getTexturalBufferedImage(int width, int height) {
         BufferedImage buffImg = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         for (int i = 0; i < width; i++) {
@@ -48,22 +43,6 @@ public class Textural {
             }
         }
         return buffImg;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
     }
 
 }

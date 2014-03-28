@@ -9,31 +9,32 @@ import javax.imageio.ImageIO;
 
 public class Picture {
 
-    private Textural firstTextural;
+    private Color firstColor;
 
-    private Textural secondTextural;
+    private Color secondColor;
 
-    public Picture(Textural firstTextural, Textural secondTextural) {
-        super();
-        this.firstTextural = firstTextural;
-        this.secondTextural = secondTextural;
+    private int occurrence;
+
+    public Picture(Color firstColor, Color secondColor, int occurrence) {
+        this.firstColor = firstColor;
+        this.secondColor = secondColor;
     }
 
-    public void print() throws IOException {
-        BufferedImage firstTexturalBuffImg = firstTextural.getTexturalBufferedImage();
-        BufferedImage secondTexturalBuffImg = secondTextural.getTexturalBufferedImage();
+    public void print(int width, int height) throws IOException {
+        Textural firstTextural = new Textural(firstColor);
+        Textural secondTextural = new Textural(secondColor);
 
-        int firstTextureWidth = firstTextural.getWidth();
-        int secondTexturalWidth = firstTextural.getWidth();
+        BufferedImage firstTexturalBuffImg = firstTextural.getTexturalBufferedImage(width / 2, height / 2);
+        BufferedImage secondTexturalBuffImg = secondTextural.getTexturalBufferedImage(width / 2, height / 2);
 
-        int pictureHeight = Math.max(secondTextural.getHeight(), firstTextural.getHeight());
-
-        BufferedImage combined = new BufferedImage(firstTextureWidth + secondTexturalWidth, pictureHeight, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage combined = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
         // paint both images, preserving the alpha channels
         Graphics g = combined.getGraphics();
         g.drawImage(firstTexturalBuffImg, 0, 0, null);
-        g.drawImage(secondTexturalBuffImg, firstTextureWidth, 0, null);
+        g.drawImage(secondTexturalBuffImg, width / 2, 0, null);
+        g.drawImage(secondTexturalBuffImg, 0, height / 2, null);
+        g.drawImage(firstTexturalBuffImg, width / 2, height / 2, null);
 
         // Save as new image
         ImageIO.write(combined, "PNG", new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
