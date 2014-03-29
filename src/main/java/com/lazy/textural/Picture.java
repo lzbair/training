@@ -9,34 +9,51 @@ import javax.imageio.ImageIO;
 
 public class Picture {
 
-    private Color firstColor;
+    private Textural firstTextural;
 
-    private Color secondColor;
+    private Textural secondTextural;
 
-    private int occurrence;
-
-    public Picture(Color firstColor, Color secondColor, int occurrence) {
-        this.firstColor = firstColor;
-        this.secondColor = secondColor;
+    public Picture(Textural firstTextural, Textural secondTextural) {
+        super();
+        this.firstTextural = firstTextural;
+        this.secondTextural = secondTextural;
     }
 
-    public void print(int width, int height) throws IOException {
-        Textural firstTextural = new Textural(firstColor);
-        Textural secondTextural = new Textural(secondColor);
+    public void print(int occurrenceWidth, int occurrenceHeight) throws IOException {
+        BufferedImage firstBufferedImage = ImageIO.read(new File(firstTextural.getTexturalName() + ".png"));
+        BufferedImage secondBufferedImage = ImageIO.read(new File(secondTextural.getTexturalName() + ".png"));
 
-        BufferedImage firstTexturalBuffImg = firstTextural.getTexturalBufferedImage(width / 2, height / 2);
-        BufferedImage secondTexturalBuffImg = secondTextural.getTexturalBufferedImage(width / 2, height / 2);
+        int firstTexturalWidth = firstBufferedImage.getWidth();
+        int firstTexturalHeight = firstBufferedImage.getHeight();
 
-        BufferedImage combined = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        BufferedImage combinedBufferedImage = new BufferedImage(occurrenceWidth * firstTexturalWidth, occurrenceHeight
+            * firstTexturalHeight, BufferedImage.TYPE_INT_ARGB);
 
         // paint both images, preserving the alpha channels
-        Graphics g = combined.getGraphics();
-        g.drawImage(firstTexturalBuffImg, 0, 0, null);
-        g.drawImage(secondTexturalBuffImg, width / 2, 0, null);
-        g.drawImage(secondTexturalBuffImg, 0, height / 2, null);
-        g.drawImage(firstTexturalBuffImg, width / 2, height / 2, null);
+        Graphics g = combinedBufferedImage.getGraphics();
+        for (int i = 0; i < occurrenceWidth; i++) {
+            for (int j = 0; j < occurrenceHeight; j++) {
+                if (i % 2 == 0) {
+                    // pour la meme ligne il faut alterner l ordre de l ecriture
+                    // des buffererdImage
+                    if (j % 2 == 0) {
+                        g.drawImage(firstBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
+                    } else {
+                        g.drawImage(secondBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
+                    }
+                    // pour la deuxieme colonne il faut alterner l ordre de l
+                    // ecriture des buffererdImage
+                } else {
+                    if (j % 2 == 0) {
+                        g.drawImage(secondBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
+                    } else {
+                        g.drawImage(firstBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
+                    }
+                }
+            }
+        }
 
         // Save as new image
-        ImageIO.write(combined, "PNG", new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
+        ImageIO.write(combinedBufferedImage, "PNG", new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
     }
 }

@@ -12,6 +12,10 @@ public class Textural {
 
     private String texturalName;
 
+    public String getTexturalName() {
+        return texturalName;
+    }
+
     public Textural(Color color) {
         this.texturalColor = color;
         // if no texturalName is given then take default name
