@@ -44,7 +44,7 @@ public class Textural {
         }
 
         try {
-            ImageIO.write(image, "PNG", new File("mixedColors.png"));
+            ImageIO.write(image, "PNG", new File("allTextures.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

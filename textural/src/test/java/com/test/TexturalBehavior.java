@@ -77,15 +77,15 @@ public class TexturalBehavior {
         listColorCodes[1] = ColorCode.BLUE;
         Textural textural = new Textural(listColorCodes, 3, 5);
         textural.print(100, 100);
-        // BufferedImage texture = ImageIO.read(new File("allTextures.png"));
-        // assertEquals(0xff00ff00, texture.getRGB(0, 0));
-        // assertEquals(0xff00ff00, texture.getRGB(99, 0));
-        // assertEquals(0xff00ff00, texture.getRGB(0, 99));
-        // assertEquals(0xff00ff00, texture.getRGB(99, 99));
-        //
-        // assertEquals(0xffffff00, texture.getRGB(100, 0));
-        // assertEquals(0xffffff00, texture.getRGB(199, 0));
-        // assertEquals(0xffffff00, texture.getRGB(100, 99));
-        // assertEquals(0xffffff00, texture.getRGB(199, 99));
+        BufferedImage texture = ImageIO.read(new File("allTextures.png"));
+        assertEquals(0xff000000, texture.getRGB(0, 0));
+        assertEquals(0xff000000, texture.getRGB(99, 0));
+        assertEquals(0xff000000, texture.getRGB(0, 99));
+        assertEquals(0xff000000, texture.getRGB(99, 99));
+
+        assertEquals(0xff0000ff, texture.getRGB(100, 0));
+        assertEquals(0xff0000ff, texture.getRGB(199, 0));
+        assertEquals(0xff0000ff, texture.getRGB(100, 99));
+        assertEquals(0xff0000ff, texture.getRGB(199, 99));
     }
 }
