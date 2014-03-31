@@ -3,35 +3,46 @@ package com.textural;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 
 import javax.imageio.ImageIO;
 
 public class Textural {
 
-    private int color;
-    private List<Integer> listColorCodes;
+    private int[] listColorCodes;
+    private int numberLines;
+    private int numberColumns;
 
-    public Textural(int color) {
-        this.color = color;
-    }
-
-    public Textural(List<Integer> listColorCodes) {
+    public Textural(int[] listColorCodes) {
         this.listColorCodes = listColorCodes;
     }
 
+    public Textural(int[] listColorCodes, int numberLines, int numberColumns) {
+        this.listColorCodes = listColorCodes;
+        this.setNumberLines(numberLines);
+        this.setNumberColumns(numberColumns);
+    }
+
     public void print(int x, int y) {
-        BufferedImage image = new BufferedImage(2 * x, y, BufferedImage.TYPE_INT_ARGB);
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                image.setRGB(i, j, 0xff00ff00);
+        int d = 0;
+        int color = 0xff000000;
+        BufferedImage image = new BufferedImage(5 * x, 3 * y, BufferedImage.TYPE_INT_ARGB);
+        for (int a = 0; a < 3; a++) {
+            for (int b = 0; b < 5; b++) {
+                for (int i = b * x; i < (b + 1) * x; i++) {
+                    for (int j = a * y; j < (a + 1) * y; j++) {
+                        image.setRGB(i, j, color);
+                    }
+                }
+                if (d == 1) {
+                    color = 0xff000000;
+                    d = 0;
+                } else {
+                    color = 0xff0000ff;
+                    d = 1;
+                }
             }
         }
-        for (int i = x; i < 2 * x; i++) {
-            for (int j = 0; j < y; j++) {
-                image.setRGB(i, j, 0xffffff00);
-            }
-        }
+
         try {
             ImageIO.write(image, "PNG", new File("mixedColors.png"));
         } catch (IOException e) {
@@ -39,12 +50,20 @@ public class Textural {
         }
     }
 
-    public int getColor() {
-        return color;
+    public int getNumberLines() {
+        return numberLines;
     }
 
-    public void setColor(int color) {
-        this.color = color;
+    public void setNumberLines(int numberLines) {
+        this.numberLines = numberLines;
+    }
+
+    public int getNumberColumns() {
+        return numberColumns;
+    }
+
+    public void setNumberColumns(int numberColumns) {
+        this.numberColumns = numberColumns;
     }
 
 }
