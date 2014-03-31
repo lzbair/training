@@ -76,7 +76,7 @@ public class TexturalBehavior {
         assertEquals(Color.RED.getRgb(), texture.getRGB(99, 99));
     }
 
-    @Test
+    // @Test
     public void printsMixedTextureColor() throws Exception {
         // le pb dans ce code est
         // que nous devions imprimer les deux textures
@@ -88,37 +88,52 @@ public class TexturalBehavior {
         Textural texturalRed = new Textural(Color.RED, "redPicture");
         texturalRed.print(50, 50);
 
-        Textural texturalYellow = new Textural(Color.YELLOW, "yellowPicture");
+        Textural texturalYellow = new Textural(Color.BLUE, "yellowPicture");
         texturalYellow.print(50, 50);
 
         Picture picture = new Picture(texturalRed, texturalYellow);
 
         // when
-        // afficher 2 fois les rectangles en hauteur et deux fois en largeur
-        picture.print(2, 2);
+        // afficher 4 fois les rectangles en largeur et 3 fois en largeur
+        picture.print(4, 3);
 
         // then
         BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
         assertEquals(Color.RED.getRgb(), texture.getRGB(0, 49));
-        assertEquals(Color.YELLOW.getRgb(), texture.getRGB(50, 0));
+        assertEquals(Color.BLUE.getRgb(), texture.getRGB(50, 99));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(100, 149));
+        assertEquals(Color.BLUE.getRgb(), texture.getRGB(150, 199));
+
+        assertEquals(Color.RED.getRgb(), texture.getRGB(0, 49));
+        assertEquals(Color.BLUE.getRgb(), texture.getRGB(99, 0));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(0, 49));
 
     }
 
-    // @Test
-    // public void printsMixedTextureColorUpgrade() throws Exception {
-    // // afficher la meme couleur deux fois
-    // // given
-    // Picture picture = new Picture(Color.RED, Color.BLUE);
-    //
-    // // when
-    // picture.print(100, 100);
-    //
-    // // then
-    // BufferedImage texture = ImageIO.read(new
-    // File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
-    // assertEquals(Color.RED.getRgb(), texture.getRGB(0, 49));
-    // assertEquals(Color.BLUE.getRgb(), texture.getRGB(99, 0));
-    //
-    // }
+    @Test
+    public void printsMixedTextureColorUpgraded() throws Exception {
+        // given
+        Textural texturalRed = new Textural(Color.RED);
+        Textural texturalYellow = new Textural(Color.BLUE);
+
+        Picture picture = new Picture(texturalRed, texturalYellow);
+
+        // when
+        // afficher 3 fois les rectangles en hauteur et 4 fois en largeur pour
+        // des rectangles de taille (50,30)
+        picture.print(4, 3);
+
+        // then
+        BufferedImage texture = ImageIO.read(new File(Constantes.DEFAULT_TEXTURE_NAME + ".png"));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(49, 0));
+        assertEquals(Color.BLUE.getRgb(), texture.getRGB(99, 0));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(149, 0));
+        assertEquals(Color.BLUE.getRgb(), texture.getRGB(199, 0));
+
+        assertEquals(Color.RED.getRgb(), texture.getRGB(0, 29));
+        assertEquals(Color.BLUE.getRgb(), texture.getRGB(0, 59));
+        assertEquals(Color.RED.getRgb(), texture.getRGB(0, 89));
+
+    }
 
 }

@@ -7,28 +7,27 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Picture {
+public class OldPicture {
 
     private Textural firstTextural;
 
     private Textural secondTextural;
 
-    private static int TEXTURAL_WIDTH = 50;
-
-    private static int TEXTURAL_HEIGHT = 30;
-
-    public Picture(Textural firstTextural, Textural secondTextural) {
+    public OldPicture(Textural firstTextural, Textural secondTextural) {
         super();
         this.firstTextural = firstTextural;
         this.secondTextural = secondTextural;
     }
 
     public void print(int occurrenceWidth, int occurrenceHeight) throws IOException {
-        BufferedImage firstBufferedImage = firstTextural.getTexturalBufferedImage(TEXTURAL_WIDTH, TEXTURAL_HEIGHT);
-        BufferedImage secondBufferedImage = secondTextural.getTexturalBufferedImage(TEXTURAL_WIDTH, TEXTURAL_HEIGHT);
+        BufferedImage firstBufferedImage = ImageIO.read(new File(firstTextural.getTexturalName() + ".png"));
+        BufferedImage secondBufferedImage = ImageIO.read(new File(secondTextural.getTexturalName() + ".png"));
 
-        BufferedImage combinedBufferedImage = new BufferedImage(occurrenceWidth * TEXTURAL_WIDTH, occurrenceHeight * TEXTURAL_HEIGHT,
-            BufferedImage.TYPE_INT_ARGB);
+        int firstTexturalWidth = firstBufferedImage.getWidth();
+        int firstTexturalHeight = firstBufferedImage.getHeight();
+
+        BufferedImage combinedBufferedImage = new BufferedImage(occurrenceWidth * firstTexturalWidth, occurrenceHeight
+            * firstTexturalHeight, BufferedImage.TYPE_INT_ARGB);
 
         // paint both images, preserving the alpha channels
         Graphics g = combinedBufferedImage.getGraphics();
@@ -38,17 +37,17 @@ public class Picture {
                     // pour la meme ligne il faut alterner l ordre de l ecriture
                     // des buffererdImage
                     if (j % 2 == 0) {
-                        g.drawImage(firstBufferedImage, TEXTURAL_WIDTH * i, TEXTURAL_HEIGHT * j, null);
+                        g.drawImage(firstBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
                     } else {
-                        g.drawImage(secondBufferedImage, TEXTURAL_WIDTH * i, TEXTURAL_HEIGHT * j, null);
+                        g.drawImage(secondBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
                     }
                     // pour la deuxieme colonne il faut alterner l ordre de l
                     // ecriture des buffererdImage
                 } else {
                     if (j % 2 == 0) {
-                        g.drawImage(secondBufferedImage, TEXTURAL_WIDTH * i, TEXTURAL_HEIGHT * j, null);
+                        g.drawImage(secondBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
                     } else {
-                        g.drawImage(firstBufferedImage, TEXTURAL_WIDTH * i, TEXTURAL_HEIGHT * j, null);
+                        g.drawImage(firstBufferedImage, firstTexturalWidth * i, firstTexturalHeight * j, null);
                     }
                 }
             }
