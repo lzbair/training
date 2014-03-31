@@ -8,39 +8,49 @@ import javax.imageio.ImageIO;
 
 public class Textural {
 
-    private int[] listColorCodes;
-    private int numberLines;
-    private int numberColumns;
+    private BackgroundTexture backgroundTexture;
+    private FrontBorder frontBorder;
+    static final int widthRectangle = 100;
+    static final int heightRectangle = 100;
 
-    public Textural(int[] listColorCodes) {
-        this.listColorCodes = listColorCodes;
+    public Textural(BackgroundTexture backgroundTexture, FrontBorder frontBorder) {
+        this.backgroundTexture = backgroundTexture;
+        this.frontBorder = frontBorder;
     }
 
-    public Textural(int[] listColorCodes, int numberLines, int numberColumns) {
-        this.listColorCodes = listColorCodes;
-        this.setNumberLines(numberLines);
-        this.setNumberColumns(numberColumns);
-    }
-
-    public void print(int x, int y) {
+    public void print() {
         int d = 0;
-        int color = 0xff000000;
-        BufferedImage image = new BufferedImage(5 * x, 3 * y, BufferedImage.TYPE_INT_ARGB);
-        for (int a = 0; a < 3; a++) {
-            for (int b = 0; b < 5; b++) {
-                for (int i = b * x; i < (b + 1) * x; i++) {
-                    for (int j = a * y; j < (a + 1) * y; j++) {
+        int color = backgroundTexture.getListColorCodes()[0];
+        BufferedImage image = new BufferedImage(backgroundTexture.getNumberColumns() * widthRectangle, backgroundTexture.getNumberLines()
+            * heightRectangle, BufferedImage.TYPE_INT_ARGB);
+        for (int a = 0; a < backgroundTexture.getNumberLines(); a++) {
+            for (int b = 0; b < backgroundTexture.getNumberColumns(); b++) {
+                for (int i = b * widthRectangle; i < (b + 1) * widthRectangle; i++) {
+                    for (int j = a * heightRectangle; j < (a + 1) * heightRectangle; j++) {
                         image.setRGB(i, j, color);
                     }
                 }
                 if (d == 1) {
-                    color = 0xff000000;
+                    color = backgroundTexture.getListColorCodes()[0];
                     d = 0;
                 } else {
-                    color = 0xff0000ff;
+                    color = backgroundTexture.getListColorCodes()[1];
                     d = 1;
                 }
             }
+        }
+
+        for (int z = 130; z < 370; z++) {
+            image.setRGB(z, 50, frontBorder.getBorderColor());
+        }
+        for (int z = 130; z < 370; z++) {
+            image.setRGB(z, 250, frontBorder.getBorderColor());
+        }
+        for (int w = 50; w < 250; w++) {
+            image.setRGB(130, w, frontBorder.getBorderColor());
+        }
+        for (int w = 50; w < 250; w++) {
+            image.setRGB(370, w, frontBorder.getBorderColor());
         }
 
         try {
@@ -50,20 +60,20 @@ public class Textural {
         }
     }
 
-    public int getNumberLines() {
-        return numberLines;
+    public BackgroundTexture getBackgroundTexture() {
+        return backgroundTexture;
     }
 
-    public void setNumberLines(int numberLines) {
-        this.numberLines = numberLines;
+    public void setBackgroundTexture(BackgroundTexture backgroundTexture) {
+        this.backgroundTexture = backgroundTexture;
     }
 
-    public int getNumberColumns() {
-        return numberColumns;
+    public FrontBorder getFrontBorder() {
+        return frontBorder;
     }
 
-    public void setNumberColumns(int numberColumns) {
-        this.numberColumns = numberColumns;
+    public void setFrontBorder(FrontBorder frontBorder) {
+        this.frontBorder = frontBorder;
     }
 
 }
